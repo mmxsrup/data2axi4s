@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 module data2axi4s #(
-	PACKET_BYTE = 1024 * 1024 * 4,
-	DATA_WIDTH = 64
+	parameter PACKET_BYTE = 1024 * 1024 * 4,
+	parameter DATA_WIDTH = 64
 )(
 	input logic clk,
 	input logic rst_n,
@@ -16,7 +16,7 @@ module data2axi4s #(
 
 	localparam PACKET_LEN = PACKET_BYTE / (DATA_WIDTH / 8);
 
-	reg [$clog2(PACKET_LEN) : 0] packet_cnt = 0;
+	logic [$clog2(PACKET_LEN) : 0] packet_cnt = 0;
 
 	always_ff @(posedge clk) begin
 		if (~rst_n || packet_cnt == PACKET_LEN - 1) begin
